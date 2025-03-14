@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aquaponics Monitoring System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <div class="logo">
+        <i class="fas fa-leaf"></i>
+        <h1>AquaPonic</h1>
+      </div>
+      <ul class="nav-links">
+        <li class="active"><a href="#dashboard"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+        <li><a href="#history"><i class="fas fa-history"></i> History</a></li>
+        <li><a href="#controls"><i class="fas fa-sliders-h"></i> Controls</a></li>
+        <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+      </ul>
+      <div class="system-status">
+        <div class="status-indicator online">
+          <span class="status-dot"></span>
+          <span class="status-text">System Online</span>
+        </div>
+      </div>
+    </nav>
+
+    <main class="content">
+      <header>
+        <div class="header-title">
+          <h2>Dashboard</h2>
+          <p class="subtitle">Real-time monitoring of your aquaponics system</p>
+        </div>
+        <div class="last-update">
+          Last updated: <span id="last-update-time">Loading...</span>
+        </div>
+      </header>
+
+      <section class="dashboard-section" id="dashboard-section">
+        <div class="metrics-grid">
+          <div class="metric-card temperature">
+            <div class="metric-icon">
+              <i class="fas fa-temperature-high"></i>
+            </div>
+            <div class="metric-data">
+              <h3>Water Temperature</h3>
+              <p class="metric-value"><span id="temperature-value">--</span>°C</p>
+              <div class="metric-status normal">Normal Range</div>
+            </div>
+          </div>
+
+          <div class="metric-card ph">
+            <div class="metric-icon">
+              <i class="fas fa-flask"></i>
+            </div>
+            <div class="metric-data">
+              <h3>pH Level</h3>
+              <p class="metric-value"><span id="ph-value">--</span></p>
+              <div class="metric-status normal">Normal Range</div>
+            </div>
+          </div>
+
+          <div class="metric-card water-level">
+            <div class="metric-icon">
+              <i class="fas fa-water"></i>
+            </div>
+            <div class="metric-data">
+              <h3>Water Level</h3>
+              <p class="metric-value"><span id="water-level-value">--</span>%</p>
+              <div class="metric-status normal">Normal Range</div>
+            </div>
+          </div>
+
+          <div class="metric-card pump-status">
+            <div class="metric-icon">
+              <i class="fas fa-pump-soap"></i>
+            </div>
+            <div class="metric-data">
+              <h3>Pump Status</h3>
+              <div class="pump-indicators">
+                <div class="pump-indicator">
+                  <span>Tank Pump:</span>
+                  <span id="tank-pump-status" class="status-badge">Unknown</span>
+                </div>
+                <div class="pump-indicator">
+                  <span>Plant Pump:</span>
+                  <span id="plant-pump-status" class="status-badge">Unknown</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <h3>24-Hour Monitoring</h3>
+          <div class="charts">
+            <canvas id="temperatureChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls-section" id="controls-section" style="display: none;">
+        <h3>Manual Controls</h3>
+        
+        <div class="control-cards">
+          <div class="control-card">
+            <div class="control-header">
+              <h4>Tank Pump</h4>
+              <div class="control-status" id="tank-pump-indicator">INACTIVE</div>
+            </div>
+            <p>Controls water flow from aquarium to plant tank</p>
+            <div class="control-actions">
+              <button class="btn-control" data-pump="tank" data-action="on">Turn ON</button>
+              <button class="btn-control" data-pump="tank" data-action="off">Turn OFF</button>
+            </div>
+          </div>
+          
+          <div class="control-card">
+            <div class="control-header">
+              <h4>Plant Pump</h4>
+              <div class="control-status" id="plant-pump-indicator">INACTIVE</div>
+            </div>
+            <p>Controls water flow from plant tank to aquarium</p>
+            <div class="control-actions">
+              <button class="btn-control" data-pump="plant" data-action="on">Turn ON</button>
+              <button class="btn-control" data-pump="plant" data-action="off">Turn OFF</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="automation-settings">
+          <h3>Automation Settings</h3>
+          <div class="setting-group">
+            <label>
+              <input type="checkbox" id="auto-temperature" checked>
+              Auto-regulate temperature
+            </label>
+            <div class="setting-range">
+              <span>Min: 24°C</span>
+              <span>Max: 28°C</span>
+            </div>
+          </div>
+          
+          <div class="setting-group">
+            <label>
+              <input type="checkbox" id="auto-water-level" checked>
+              Auto-regulate water level
+            </label>
+            <div class="setting-range">
+              <span>Min: 70%</span>
+              <span>Max: 90%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
