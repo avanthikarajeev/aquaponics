@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
       updateMetricStatus('ph', data.ph);
       updateMetricStatus('water-level', data.waterLevel);
       
-      // Update pump status
+      // Update pumpg status
       updatePumpStatus('tank', data.tankPump);
       updatePumpStatus('plant', data.plantPump);
       
